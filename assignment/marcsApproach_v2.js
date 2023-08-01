@@ -15,9 +15,9 @@ async function cookBreakfast(numberOfEggs, numberOfBread, numberOfTea, callback)
   
     logStream.write("Cooking breakfast...\n");
 
-    await cookitems('Egg', 3000, numberOfEggs, logStream);
-    await cookitems('Bread', 2000, numberOfBread, logStream);
-    await cookitems('Tea', 2000, numberOfTea, logStream);
+    await cookitems('Egg(s)', 3000, numberOfEggs, logStream);
+    await cookitems('Slice(s) of bread', 2000, numberOfBread, logStream);
+    await cookitems('Cup(s) of Tea', 2000, numberOfTea, logStream);
     callback();
 }
 
@@ -30,14 +30,14 @@ async function cookitems(item, time, quantity, logStream) {
         return
     }
     return new Promise ((resolve, reject) => {
-        logStream.write(`Cooking ${quantity} ${item}...\n`);
+        logStream.write(`Getting ${quantity} ${item} ready...\n`);
         const startTime = new Date();
         let totaltime = time * quantity;
 
         setTimeout(function() {
             const endTime = new Date();
             const elapsedTime = (endTime - startTime) / 1000;
-            logStream.write(item + " are cooked! (Time: " + elapsedTime + " seconds)\n");
+            logStream.write(`Your ${item} are(is) ready! (Time: ${elapsedTime} seconds)\n`);
             resolve();
         }, totaltime);
     })
@@ -46,6 +46,8 @@ async function cookitems(item, time, quantity, logStream) {
 cookBreakfast(0, 0, 1, (err) => {
     if (err) {
         logStream.write(err.toString())
+    } else { 
+        logStream.write('Your Breakfast is ready')
     }
     console.log('Done, check breakfast log');
 })
