@@ -1,17 +1,17 @@
 const fs = require('fs');
 const logStream = fs.createWriteStream('breakfast_log.txt')
 
-function cookBreakfast(eggs, bread, tea, callback) {
-    if (!isValidQuantity(eggs) || !isValidQuantity(bread) || !isValidQuantity(tea)) {
+function cookBreakfast(numberOfEggs, numberOfBread, numberOfTea, callback) {
+    if (!isValidQuantity(numberOfEggs) || !isValidQuantity(numberOfBread) || !isValidQuantity(numberOfTea)) {
       callback(new Error('Invalid input! Quantity should be a positive integer between 0 and 20.'));
       return;
     }
 
     logStream.write("Cooking breakfast...\n");
 
-    cookItem('Egg(s)', 3000, eggs, logStream, function() {
-      cookItem('Slice(s) of bread', 2000, bread, logStream, function() {
-        cookItem('Cup(s) of Tea', 2000, tea, logStream, function() {
+    cookItem('Egg(s)', 3000, numberOfEggs, logStream, function() {
+      cookItem('Slice(s) of bread', 2000, numberOfBread, logStream, function() {
+        cookItem('Cup(s) of Tea', 2000, numberOfTea, logStream, function() {
           callback();
         });
       });
